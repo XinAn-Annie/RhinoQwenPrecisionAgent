@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rhino Qwen Precision Agent</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><p class="eyebrow">QWEN × MCNEEL RHINO MCP</p><h1>Rhino Qwen<br>Precision Agent</h1></div>
+      <div class="status" id="status"></div>
+    </header>
+    <section id="messages" class="messages">
+      <article class="message assistant"><strong>系统</strong><p>输入中文要求。建模模式会先生成 ModelingSpec，再经官方 Rhino MCP 执行与确定性验收。</p></article>
+    </section>
+    <section id="details" class="details hidden"></section>
+    <footer>
+      <div class="toolbar">
+        <label><input type="radio" name="mode" value="model" checked> 建模</label>
+        <label><input type="radio" name="mode" value="qa"> 问答（只读）</label>
+        <button id="undo" class="secondary">撤销本轮</button>
+        <button id="stop" class="danger">停止</button>
+      </div>
+      <textarea id="prompt" rows="4" placeholder="例如：创建外径160、厚20、中心孔40、分度圆110、6×Ø12通孔的精密法兰。"></textarea>
+      <button id="send" class="primary">发送给 Qwen</button>
+    </footer>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

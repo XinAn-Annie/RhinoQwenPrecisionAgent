@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-31",
+  "environment": {
+    "rhino": "8.33",
+    "rhino_mcp_platform": "0.3.0",
+    "mcp_tools": 32,
+    "qwen_model": "qwen3.8-flash"
+  },
+  "fixed_spec_real_rhino": [
+    {"case": "stepped_shaft", "passed": true, "checks": "8/8"},
+    {"case": "sketch_extrusion_fillet", "passed": true, "checks": "8/8"},
+    {"case": "sketch_extrusion_chamfer", "passed": true, "checks": "8/8"},
+    {"case": "loft_surface", "passed": true, "checks": "8/8"},
+    {"case": "three_part_assembly", "passed": true, "checks": "20/20"}
+  ],
+  "qwen_end_to_end": [
+    {"case": "stepped_shaft", "passed": true, "checks": "8/8", "runtime_seconds": 42.354, "record": "qwen_advanced_shaft.json"},
+    {"case": "sketch_extrusion_fillet", "passed": true, "checks": "8/8", "runtime_seconds": 45.745, "record": "qwen_advanced_sketch_fillet.json"},
+    {"case": "three_part_assembly", "passed": true, "checks": "20/20", "runtime_seconds": 47.44, "record": "qwen_advanced_assembly.json"}
+  ],
+  "qwen_parse_only": [
+    {"case": "loft_surface", "passed": true, "primitive": "loft_surface", "sections": 3, "record": "qwen_advanced_loft_spec.json"}
+  ],
+  "automated_tests": {"passed": 12, "failed": 0},
+  "screenshots": [
+    "../screenshots/create_precision_stepped_shaft.jpg",
+    "../screenshots/sketch_extrusion_vertical_fillet.jpg",
+    "../screenshots/precision_assembly_chassis_shaft_topplate.jpg",
+    "../screenshots/advanced-loft-validated.jpg"
+  ]
+}

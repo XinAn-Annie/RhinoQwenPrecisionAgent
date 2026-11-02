@@ -1,0 +1,192 @@
+{
+  "spec": {
+    "task_id": "loft_surface_three_elliptical_sections",
+    "intent": "create",
+    "units": "mm",
+    "document_tolerance": 0.01,
+    "objects": [
+      {
+        "name": "loft_surface_1",
+        "primitive": "loft_surface",
+        "dimensions": {
+          "height": 110.0,
+          "section_count": 3.0
+        },
+        "position": {
+          "center_x": 0.0,
+          "center_y": 0.0,
+          "base_z": 0.0
+        },
+        "steps": [],
+        "sketch": [],
+        "sections": [
+          {
+            "z": 0.0,
+            "width": 100.0,
+            "depth": 60.0,
+            "center_x": 0.0,
+            "center_y": 0.0,
+            "rotation_deg": 0.0
+          },
+          {
+            "z": 50.0,
+            "width": 70.0,
+            "depth": 90.0,
+            "center_x": 15.0,
+            "center_y": 0.0,
+            "rotation_deg": 25.0
+          },
+          {
+            "z": 110.0,
+            "width": 40.0,
+            "depth": 50.0,
+            "center_x": -10.0,
+            "center_y": 12.0,
+            "rotation_deg": 55.0
+          }
+        ],
+        "edge_treatment": null,
+        "layer": "高级_自由曲面",
+        "color": "blue",
+        "value_sources": {
+          "name": "derived",
+          "primitive": "user",
+          "dimensions": "default",
+          "sections": "user",
+          "position.center_x": "user",
+          "position.center_y": "user",
+          "position.base_z": "user",
+          "layer": "user",
+          "color": "default"
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "type": "valid_geometry",
+        "targets": [
+          "loft_surface_1"
+        ],
+        "tolerance": null,
+        "axis": null,
+        "minimum": null,
+        "maximum": null
+      },
+      {
+        "type": "center_aligned_xy",
+        "targets": [
+          "loft_surface_1"
+        ],
+        "tolerance": null,
+        "axis": null,
+        "minimum": null,
+        "maximum": null
+      }
+    ],
+    "acceptance": {
+      "dimension_tolerance_mm": 0.1,
+      "expected_object_count": 1,
+      "require_valid_geometry": true
+    },
+    "assumptions": [
+      "用户未指定单位，采用默认 mm。",
+      "用户未指定文档容差，采用默认 0.01。",
+      "用户未指定颜色，采用默认 blue。",
+      "用户未指定 task_id，采用可识别默认值。",
+      "loft_surface 的 dimensions 使用空对象，几何由 sections 定义。"
+    ]
+  },
+  "meta": {
+    "model": "qwen3.8-flash",
+    "usage": {
+      "completion_tokens": 1925,
+      "prompt_tokens": 2121,
+      "total_tokens": 4046
+    },
+    "raw": {
+      "task_id": "loft_surface_three_elliptical_sections",
+      "intent": "create",
+      "units": "mm",
+      "document_tolerance": 0.01,
+      "objects": [
+        {
+          "name": "loft_surface_1",
+          "primitive": "loft_surface",
+          "dimensions": {},
+          "position": {
+            "center_x": 0,
+            "center_y": 0,
+            "base_z": 0
+          },
+          "sections": [
+            {
+              "z": 0,
+              "width": 100,
+              "depth": 60,
+              "center_x": 0,
+              "center_y": 0,
+              "rotation_deg": 0
+            },
+            {
+              "z": 50,
+              "width": 70,
+              "depth": 90,
+              "center_x": 15,
+              "center_y": 0,
+              "rotation_deg": 25
+            },
+            {
+              "z": 110,
+              "width": 40,
+              "depth": 50,
+              "center_x": -10,
+              "center_y": 12,
+              "rotation_deg": 55
+            }
+          ],
+          "layer": "高级_自由曲面",
+          "color": "blue",
+          "value_sources": {
+            "name": "derived",
+            "primitive": "user",
+            "dimensions": "default",
+            "sections": "user",
+            "position.center_x": "user",
+            "position.center_y": "user",
+            "position.base_z": "user",
+            "layer": "user",
+            "color": "default"
+          }
+        }
+      ],
+      "constraints": [
+        {
+          "type": "valid_geometry",
+          "targets": [
+            "loft_surface_1"
+          ]
+        },
+        {
+          "type": "center_aligned_xy",
+          "targets": [
+            "loft_surface_1"
+          ]
+        }
+      ],
+      "acceptance": {
+        "dimension_tolerance_mm": 0.1,
+        "expected_object_count": 1,
+        "require_valid_geometry": true
+      },
+      "assumptions": [
+        "用户未指定单位，采用默认 mm。",
+        "用户未指定文档容差，采用默认 0.01。",
+        "用户未指定颜色，采用默认 blue。",
+        "用户未指定 task_id，采用可识别默认值。",
+        "loft_surface 的 dimensions 使用空对象，几何由 sections 定义。"
+      ]
+    },
+    "attempts": 1,
+    "validation_errors": []
+  }
+}

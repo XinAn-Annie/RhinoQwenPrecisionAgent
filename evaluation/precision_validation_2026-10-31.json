@@ -1,0 +1,30 @@
+{
+  "scope": "Two controlled precision/product templates on real Qwen + official Rhino MCP + Rhino 8; not arbitrary mechanical CAD",
+  "model": "qwen3.8-flash",
+  "rhino_mcp": "McNeel Rhino MCP Platform 0.3.0",
+  "cases": [
+    {
+      "id": "flange_precision_001",
+      "primitive": "flange",
+      "dimensions_mm": {
+        "outer_diameter": 160,
+        "thickness": 20,
+        "bore_diameter": 40,
+        "bolt_circle_diameter": 110,
+        "bolt_hole_diameter": 12,
+        "bolt_hole_count": 6
+      },
+      "validation": {"passed": true, "checks": 11, "failed": 0},
+      "runtime_seconds": 24.149,
+      "screenshot": "screenshots/precision-flange-validated.jpg"
+    },
+    {
+      "id": "task-product-enclosure-001",
+      "primitive": "enclosure",
+      "dimensions_mm": {"width": 180, "depth": 120, "height": 60, "wall_thickness": 3},
+      "validation": {"passed": true, "checks": 11, "failed": 0},
+      "runtime_seconds": 28.016,
+      "screenshot": "screenshots/product-enclosure-validated.jpg"
+    }
+  ]
+}

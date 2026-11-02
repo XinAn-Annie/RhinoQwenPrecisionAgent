@@ -1,0 +1,10 @@
+.env
+secrets/
+.venv/
+.cache/
+__pycache__/
+*.pyc
+logs/
+evaluation/runs/*.json
+evaluation/runs/*.jsonl
+screenshots/*.png

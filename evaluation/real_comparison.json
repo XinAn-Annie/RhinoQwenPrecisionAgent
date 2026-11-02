@@ -1,0 +1,132 @@
+{
+  "scope": "three-case real Qwen + Rhino MCP PoC; not statistically generalizable",
+  "model": "qwen3.8-flash",
+  "baseline": {
+    "rows": [
+      {
+        "id": "box",
+        "passed": false,
+        "first_passed": false,
+        "checks": {
+          "checks": 3,
+          "passed": 0,
+          "failed": 3
+        },
+        "max_error_mm": null,
+        "tool_failures": 1,
+        "repairs": 0,
+        "manual_adjustments": 0,
+        "seconds": 18.036,
+        "tokens": 1505
+      },
+      {
+        "id": "table",
+        "passed": false,
+        "first_passed": false,
+        "checks": {
+          "checks": 7,
+          "passed": 0,
+          "failed": 7
+        },
+        "max_error_mm": null,
+        "tool_failures": 1,
+        "repairs": 0,
+        "manual_adjustments": 0,
+        "seconds": 19.416,
+        "tokens": 2185
+      },
+      {
+        "id": "repair",
+        "passed": false,
+        "first_passed": false,
+        "checks": {
+          "checks": 5,
+          "passed": 0,
+          "failed": 5
+        },
+        "max_error_mm": null,
+        "tool_failures": 1,
+        "repairs": 0,
+        "manual_adjustments": 0,
+        "seconds": 11.816,
+        "tokens": 1552
+      }
+    ],
+    "summary": {
+      "cases": 3,
+      "first_pass_rate": 0.0,
+      "final_pass_rate": 0.0,
+      "mean_max_abs_error_mm": null,
+      "constraint_satisfaction_rate": 0.0,
+      "tool_failures": 3,
+      "repairs": 0,
+      "manual_adjustments": 0,
+      "mean_seconds": 16.422666666666668,
+      "tokens": 5242
+    }
+  },
+  "experiment": {
+    "rows": [
+      {
+        "id": "box",
+        "passed": true,
+        "first_passed": true,
+        "checks": {
+          "checks": 7,
+          "passed": 7,
+          "failed": 0
+        },
+        "max_error_mm": 0.0,
+        "tool_failures": 0,
+        "repairs": 0,
+        "manual_adjustments": 0,
+        "seconds": 46.168,
+        "tokens": 4571
+      },
+      {
+        "id": "table",
+        "passed": true,
+        "first_passed": true,
+        "checks": {
+          "checks": 19,
+          "passed": 19,
+          "failed": 0
+        },
+        "max_error_mm": 0.0,
+        "tool_failures": 0,
+        "repairs": 0,
+        "manual_adjustments": 0,
+        "seconds": 84.576,
+        "tokens": 4962
+      },
+      {
+        "id": "repair",
+        "passed": true,
+        "first_passed": false,
+        "checks": {
+          "checks": 13,
+          "passed": 13,
+          "failed": 0
+        },
+        "max_error_mm": 0.0,
+        "tool_failures": 0,
+        "repairs": 1,
+        "manual_adjustments": 0,
+        "seconds": 92.342,
+        "tokens": 3671
+      }
+    ],
+    "summary": {
+      "cases": 3,
+      "first_pass_rate": 0.6666666666666666,
+      "final_pass_rate": 1.0,
+      "mean_max_abs_error_mm": 0.0,
+      "constraint_satisfaction_rate": 1.0,
+      "tool_failures": 0,
+      "repairs": 1,
+      "manual_adjustments": 0,
+      "mean_seconds": 74.362,
+      "tokens": 13204
+    }
+  }
+}

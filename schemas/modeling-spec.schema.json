@@ -1,0 +1,407 @@
+{
+  "$defs": {
+    "Acceptance": {
+      "properties": {
+        "dimension_tolerance_mm": {
+          "default": 0.1,
+          "exclusiveMinimum": 0,
+          "title": "Dimension Tolerance Mm",
+          "type": "number"
+        },
+        "expected_object_count": {
+          "minimum": 1,
+          "title": "Expected Object Count",
+          "type": "integer"
+        },
+        "require_valid_geometry": {
+          "default": true,
+          "title": "Require Valid Geometry",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "expected_object_count"
+      ],
+      "title": "Acceptance",
+      "type": "object"
+    },
+    "Constraint": {
+      "properties": {
+        "type": {
+          "enum": [
+            "bbox_dimensions",
+            "closed_solid",
+            "valid_geometry",
+            "center_aligned_xy",
+            "z_contact",
+            "parallel",
+            "perpendicular",
+            "interference_free",
+            "clearance"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "targets": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Targets",
+          "type": "array"
+        },
+        "tolerance": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tolerance"
+        },
+        "axis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Axis"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        }
+      },
+      "required": [
+        "type",
+        "targets"
+      ],
+      "title": "Constraint",
+      "type": "object"
+    },
+    "EdgeTreatment": {
+      "properties": {
+        "type": {
+          "enum": [
+            "fillet",
+            "chamfer"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "size": {
+          "exclusiveMinimum": 0,
+          "title": "Size",
+          "type": "number"
+        },
+        "selector": {
+          "default": "vertical",
+          "enum": [
+            "all",
+            "vertical",
+            "horizontal"
+          ],
+          "title": "Selector",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "size"
+      ],
+      "title": "EdgeTreatment",
+      "type": "object"
+    },
+    "LoftSection": {
+      "properties": {
+        "z": {
+          "title": "Z",
+          "type": "number"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "title": "Width",
+          "type": "number"
+        },
+        "depth": {
+          "exclusiveMinimum": 0,
+          "title": "Depth",
+          "type": "number"
+        },
+        "center_x": {
+          "default": 0,
+          "title": "Center X",
+          "type": "number"
+        },
+        "center_y": {
+          "default": 0,
+          "title": "Center Y",
+          "type": "number"
+        },
+        "rotation_deg": {
+          "default": 0,
+          "title": "Rotation Deg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "z",
+        "width",
+        "depth"
+      ],
+      "title": "LoftSection",
+      "type": "object"
+    },
+    "ModelObject": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 80,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "primitive": {
+          "enum": [
+            "box",
+            "cylinder",
+            "sphere",
+            "flange",
+            "enclosure",
+            "stepped_shaft",
+            "sketch_extrusion",
+            "loft_surface"
+          ],
+          "title": "Primitive",
+          "type": "string"
+        },
+        "dimensions": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Dimensions",
+          "type": "object"
+        },
+        "position": {
+          "$ref": "#/$defs/Position"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/ShaftStep"
+          },
+          "title": "Steps",
+          "type": "array"
+        },
+        "sketch": {
+          "items": {
+            "$ref": "#/$defs/SketchPoint"
+          },
+          "title": "Sketch",
+          "type": "array"
+        },
+        "sections": {
+          "items": {
+            "$ref": "#/$defs/LoftSection"
+          },
+          "title": "Sections",
+          "type": "array"
+        },
+        "edge_treatment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EdgeTreatment"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "layer": {
+          "default": "AI_Demo",
+          "title": "Layer",
+          "type": "string"
+        },
+        "color": {
+          "default": "blue",
+          "title": "Color",
+          "type": "string"
+        },
+        "value_sources": {
+          "additionalProperties": {
+            "enum": [
+              "user",
+              "default",
+              "derived"
+            ],
+            "type": "string"
+          },
+          "title": "Value Sources",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "primitive"
+      ],
+      "title": "ModelObject",
+      "type": "object"
+    },
+    "Position": {
+      "properties": {
+        "center_x": {
+          "default": 0,
+          "title": "Center X",
+          "type": "number"
+        },
+        "center_y": {
+          "default": 0,
+          "title": "Center Y",
+          "type": "number"
+        },
+        "base_z": {
+          "default": 0,
+          "title": "Base Z",
+          "type": "number"
+        }
+      },
+      "title": "Position",
+      "type": "object"
+    },
+    "ShaftStep": {
+      "properties": {
+        "diameter": {
+          "exclusiveMinimum": 0,
+          "title": "Diameter",
+          "type": "number"
+        },
+        "length": {
+          "exclusiveMinimum": 0,
+          "title": "Length",
+          "type": "number"
+        }
+      },
+      "required": [
+        "diameter",
+        "length"
+      ],
+      "title": "ShaftStep",
+      "type": "object"
+    },
+    "SketchPoint": {
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "SketchPoint",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "maxLength": 80,
+      "minLength": 1,
+      "title": "Task Id",
+      "type": "string"
+    },
+    "intent": {
+      "enum": [
+        "create",
+        "modify"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "units": {
+      "default": "mm",
+      "enum": [
+        "mm",
+        "cm",
+        "m",
+        "inch"
+      ],
+      "title": "Units",
+      "type": "string"
+    },
+    "document_tolerance": {
+      "default": 0.01,
+      "exclusiveMinimum": 0,
+      "title": "Document Tolerance",
+      "type": "number"
+    },
+    "objects": {
+      "items": {
+        "$ref": "#/$defs/ModelObject"
+      },
+      "minItems": 1,
+      "title": "Objects",
+      "type": "array"
+    },
+    "constraints": {
+      "items": {
+        "$ref": "#/$defs/Constraint"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "acceptance": {
+      "$ref": "#/$defs/Acceptance"
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "task_id",
+    "intent",
+    "objects",
+    "acceptance"
+  ],
+  "title": "ModelingSpec",
+  "type": "object"
+}
