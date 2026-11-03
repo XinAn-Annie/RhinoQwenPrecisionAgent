@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "files": {
+    "github_mcneel_rview_small::public/samples/RhinoLogo.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/RhinoLogo.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:07:58+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\RhinoLogo.3dm",
+      "size_bytes": 928347,
+      "sha256": "34c8d808e8ae3887545d55928240e180572b7dadda8005648b79a72967229758"
+    },
+    "github_mcneel_rview_small::public/samples/Ring.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/Ring.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:07:59+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\Ring.3dm",
+      "size_bytes": 1707486,
+      "sha256": "1361e801531e3e94eebce316f766164a76c1e8c5e47a138912877bb5c16b1fc7"
+    },
+    "github_mcneel_rview_small::public/samples/Clip.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/Clip.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:08:17+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\Clip.3dm",
+      "size_bytes": 6868859,
+      "sha256": "4866c62481f85e63f36059bd26926772a71290332abf83f80d44440690a87dc2"
+    },
+    "github_mcneel_rview_small::public/samples/Drill.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/Drill.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:08:19+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\Drill.3dm",
+      "size_bytes": 3922551,
+      "sha256": "2c0229f0272524021d3d0031ab94d6889e32a455fd1757930dd8e4ce6a9f3a56"
+    },
+    "github_mcneel_rview_small::public/samples/RhinoLogoSubd.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/RhinoLogoSubd.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:08:21+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\RhinoLogoSubd.3dm",
+      "size_bytes": 509019,
+      "sha256": "0b5e18d167603ae3ac93339a4e5ce9c2017e48e31cb8f003b645200fda76d441"
+    },
+    "github_mcneel_rview_small::public/samples/Teacup.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/Teacup.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:08:22+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\Teacup.3dm",
+      "size_bytes": 772845,
+      "sha256": "111aaeda16248cc572153575df0dc85c822eb21af14b12a65d7d15e2cb95a0e8"
+    },
+    "github_mcneel_rview_small::public/samples/Teapots.3dm": {
+      "source_id": "github_mcneel_rview_small",
+      "source_url": "https://raw.githubusercontent.com/mcneel/rview/main/public/samples/Teapots.3dm",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "retrieved_at": "2026-11-03T03:08:28+08:00",
+      "relative_path": "raw\\github_mcneel_rview_small\\public\\samples\\Teapots.3dm",
+      "size_bytes": 12054780,
+      "sha256": "cec4dbbbe9483e21b4639bece51fe393b3710202050c1ffa86bad3cd55ca2cd7"
+    }
+  },
+  "updated_at": "2026-11-03T03:08:28+08:00"
+}

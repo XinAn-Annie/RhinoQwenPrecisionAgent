@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-11-02T23:56:35+08:00",
+  "policy": {
+    "default_download": false,
+    "require_explicit_license": true,
+    "require_explicit_or_embedded_unit": true,
+    "large_download_threshold_bytes": 104857600,
+    "notes": "Only sources with crawl_enabled=true are downloaded by the default command. Large or legally ambiguous sources remain catalog-only."
+  },
+  "sources": [
+    {
+      "source_id": "github_mcneel_rview_small",
+      "priority": 1,
+      "title": "McNeel rview public Rhino sample models (small allowlist)",
+      "source_url": "https://github.com/mcneel/rview",
+      "provider": "GitHub / Robert McNeel & Associates",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rview/blob/main/LICENSE",
+      "license_status": "verified",
+      "availability": "available",
+      "formats": ["3dm"],
+      "unit_policy": "embedded_3dm_model_unit",
+      "crawl_enabled": true,
+      "acquisition": {
+        "type": "github_files",
+        "repository": "mcneel/rview",
+        "revision": "main",
+        "files": [
+          "public/samples/Clip.3dm",
+          "public/samples/Drill.3dm",
+          "public/samples/RhinoLogo.3dm",
+          "public/samples/RhinoLogoSubd.3dm",
+          "public/samples/Ring.3dm",
+          "public/samples/Teacup.3dm",
+          "public/samples/Teapots.3dm"
+        ]
+      },
+      "estimated_download_bytes": 26764287,
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Bounded seven-file pilot (about 26.8 MB), not a repository-wide download."
+    },
+    {
+      "source_id": "github_mcneel_rhino3dm_nurbscurve_json",
+      "priority": 1,
+      "title": "rhino3dm NURBS curve documentation JSON",
+      "source_url": "https://github.com/mcneel/rhino3dm/blob/9.x/docs/data/json/nurbscurve.json",
+      "provider": "GitHub / Robert McNeel & Associates",
+      "license": "MIT",
+      "license_url": "https://github.com/mcneel/rhino3dm/blob/9.x/LICENSE",
+      "license_status": "verified",
+      "availability": "available",
+      "formats": ["json"],
+      "unit_policy": "not_declared",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "github_files",
+        "repository": "mcneel/rhino3dm",
+        "revision": "9.x",
+        "files": ["docs/data/json/nurbscurve.json"]
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Disabled: strict dataset policy rejects unitless geometry. Useful only after an authoritative unit declaration or an explicit curriculum decision."
+    },
+    {
+      "source_id": "github_mcneel_developer_samples",
+      "priority": 1,
+      "title": "McNeel Rhino developer samples",
+      "source_url": "https://github.com/mcneel/rhino-developer-samples",
+      "provider": "GitHub / Robert McNeel & Associates",
+      "license": "NOASSERTION",
+      "license_url": null,
+      "license_status": "unverified",
+      "availability": "available",
+      "formats": ["3dm"],
+      "unit_policy": "embedded_3dm_model_unit",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "github_files",
+        "repository": "mcneel/rhino-developer-samples",
+        "revision": "9",
+        "files": ["rhino3dm/models/nurbscurve.3dm"]
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Disabled: GitHub reports NOASSERTION and no repository-root LICENSE was found at the checked revision."
+    },
+    {
+      "source_id": "github_geomdl_examples",
+      "priority": 1,
+      "title": "NURBS-Python (geomdl) example curves",
+      "source_url": "https://github.com/orbingol/geomdl-examples",
+      "provider": "GitHub / Onur Rauf Bingol",
+      "license": "MIT",
+      "license_url": "https://github.com/orbingol/geomdl-examples/blob/master/LICENSE",
+      "license_status": "verified",
+      "availability": "available",
+      "formats": ["cpt", "cptw", "py"],
+      "unit_policy": "not_declared",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "github_tree",
+        "repository": "orbingol/geomdl-examples",
+        "revision": "master",
+        "include_paths": ["bezier/", "curve2d/", "curve3d/"],
+        "extensions": [".cpt", ".cptw", ".py"]
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Excellent control-point examples, but disabled because the examples do not declare physical units."
+    },
+    {
+      "source_id": "github_tinyspline",
+      "priority": 1,
+      "title": "TinySpline tests and examples",
+      "source_url": "https://github.com/msteinbeck/tinyspline",
+      "provider": "GitHub / Martin Steinbeck",
+      "license": "MIT",
+      "license_url": "https://github.com/msteinbeck/tinyspline/blob/master/LICENSE",
+      "license_status": "verified",
+      "availability": "available",
+      "formats": ["json", "c", "python"],
+      "unit_policy": "not_declared",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "github_tree",
+        "repository": "msteinbeck/tinyspline",
+        "revision": "master",
+        "include_paths": ["examples/", "test/"],
+        "extensions": [".json", ".c", ".py"]
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Disabled: no physical units in examples; source code is not executed by the ingestion pipeline."
+    },
+    {
+      "source_id": "nyu_abc_step",
+      "priority": 1,
+      "title": "ABC: A Big CAD Model Dataset (STEP chunks)",
+      "source_url": "https://archive.nyu.edu/handle/2451/44309",
+      "provider": "NYU Faculty Digital Archive / ABC Dataset",
+      "license": "MIT (dataset release) with upstream Onshape creator-rights notice",
+      "license_url": "https://archive.nyu.edu/jspui/handle/2451/44392",
+      "license_status": "verified_with_upstream_notice",
+      "availability": "available",
+      "formats": ["step", "7z"],
+      "unit_policy": "embedded_step_unit",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "manual_large_archive",
+        "example_chunk_url": "https://archive.nyu.edu/jspui/handle/2451/44392"
+      },
+      "estimated_download_bytes_per_step_chunk": 997615616,
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "High-value source, but disabled for the pilot: each STEP chunk is about 1 GB, archives require 7z, and STEP extraction requires an OCCT/Rhino batch parser. Review upstream Onshape terms before redistribution."
+    },
+    {
+      "source_id": "zenodo_1154780_bezier",
+      "priority": 2,
+      "title": "Systematically generated Bézier curves",
+      "source_url": "https://zenodo.org/records/1154780",
+      "provider": "Zenodo",
+      "license": "CC-BY-4.0",
+      "license_url": "https://zenodo.org/records/1154780",
+      "license_status": "verified_via_zenodo_api",
+      "availability": "available",
+      "formats": ["tsv.xz"],
+      "unit_policy": "requires_schema_review",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "zenodo_file",
+        "record_id": 1154780,
+        "file": "generated-bezier.tsv.xz",
+        "md5": "63c09b8adc044debafb93c0f5428e9e4",
+        "size_bytes": 152550908
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Disabled: 152.6 MB and column/unit semantics must be inspected before ingesting."
+    },
+    {
+      "source_id": "zenodo_22256829_vectorized_maps",
+      "priority": 2,
+      "title": "Vectorized Maps Beyond Vehicle View",
+      "source_url": "https://zenodo.org/records/22256829",
+      "provider": "Zenodo",
+      "license": "CC-BY-4.0",
+      "license_url": "https://zenodo.org/records/22256829",
+      "license_status": "verified_via_zenodo_api",
+      "availability": "available",
+      "formats": ["csv"],
+      "unit_policy": "requires_schema_review",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "zenodo_record",
+        "record_id": 22256829,
+        "files": [
+          {"name": "test.csv", "size_bytes": 4697356, "md5": "f55ce5b68af65be7fc34260aa24903af"},
+          {"name": "val.csv", "size_bytes": 9397241, "md5": "046d305a913a707231b118a2774390c9"},
+          {"name": "train.csv", "size_bytes": 193695447, "md5": "34581c2dfb1b58867191765b232b275e"}
+        ]
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Contains 3D cubic Bézier lane segments with four control points. Disabled until coordinate units and row schema are confirmed."
+    },
+    {
+      "source_id": "zenodo_18302984_hug_vas",
+      "priority": 2,
+      "title": "HUG-VAS hierarchical NURBS aortic geometry dataset",
+      "source_url": "https://zenodo.org/records/18302984",
+      "provider": "Zenodo",
+      "license": "CC-BY-4.0",
+      "license_url": "https://zenodo.org/records/18302984",
+      "license_status": "verified_via_zenodo_api",
+      "availability": "available",
+      "formats": ["zip"],
+      "unit_policy": "requires_schema_review",
+      "crawl_enabled": false,
+      "acquisition": {
+        "type": "zenodo_file",
+        "record_id": 18302984,
+        "file": "Patient-specific_aorta_vessels.zip",
+        "md5": "a42065bfff6e9f1044d9c384a1bfd14c",
+        "size_bytes": 28787953
+      },
+      "checked_at": "2026-11-02T23:56:35+08:00",
+      "notes": "Disabled pending archive schema and medical-data provenance review; metadata alone does not prove that explicit curve control points are included."
+    }
+  ],
+  "search_audit": [
+    {
+      "provider": "Kaggle",
+      "query": "NURBS CAD curves / Bézier control points",
+      "result": "No clearly licensed, directly relevant curve-control-point dataset verified in the initial search.",
+      "checked_at": "2026-11-02T23:56:35+08:00"
+    },
+    {
+      "provider": "OpenML",
+      "query": "NURBS / Bézier",
+      "result": "No directly relevant candidate verified in the initial search.",
+      "checked_at": "2026-11-02T23:56:35+08:00"
+    }
+  ]
+}

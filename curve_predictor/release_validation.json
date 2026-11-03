@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-11-03T10:02:05.002086+08:00",
+  "dataset_records": 2000,
+  "dataset_hashes_valid": 2000,
+  "test_predictions": 400,
+  "openNURBS_valid_count": 400,
+  "openNURBS_valid_rate": 1.0,
+  "closure_consistency_rate": 1.0,
+  "artifact_sha256": {
+    "model.joblib": "7057e5266ed999edc39a991406d7edc1b5e8daf58dc12e54e11a7c29e77273a5",
+    "scaler.joblib": "e1178110d6a39224edfa0072406bb6c02b71e0d28c2c9c2ca350cabdf0948a94",
+    "feature_schema.json": "a3e6e457e667d33dd2fed114c00c6fe846604bc252a58a83339435ce410fa02b",
+    "train_metrics.json": "e4000ae8a45052dae2ba0a25c36eb9aa1ed54f55da94fe0ee2960311d698ec88",
+    "test_predictions.json": "8d58f80a8d827b2daa204c0ad4eb4ded5dce8c09e55fe0e56469e45d2691e850"
+  },
+  "release_gate_passed": true
+}

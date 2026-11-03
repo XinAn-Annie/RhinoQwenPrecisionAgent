@@ -8,14 +8,16 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
-$WorkRoot = 'D:\codex\work\RhinoQwenPrecisionAgent'
+$WorkRoot = Join-Path $ProjectRoot 'work'
 $CacheRoot = Join-Path $ProjectRoot '.cache'
 $VenvRoot = Join-Path $ProjectRoot '.venv'
 $LogRoot = Join-Path $ProjectRoot 'logs'
 $LauncherLog = Join-Path $LogRoot 'launcher.log'
 $ServerOutLog = Join-Path $LogRoot 'server.out.log'
 $ServerErrLog = Join-Path $LogRoot 'server.err.log'
-$AgentUrl = 'http://127.0.0.1:8765'
+$AgentUrl = 'http://127.0.0.1:8766'
+$PredictorUrl = 'http://127.0.0.1:8777'
+$PredictorRoot = Join-Path $ProjectRoot 'curve_predictor'
 
 New-Item -ItemType Directory -Force -Path $WorkRoot,$CacheRoot,$LogRoot | Out-Null
 $env:TEMP = $WorkRoot
@@ -119,6 +121,22 @@ try {
         & $systemPython -m venv $VenvRoot
         & $Python -m pip install -r (Join-Path $ProjectRoot 'requirements.txt')
         if ($LASTEXITCODE -ne 0) { throw 'Python 依赖安装失败。' }
+    }
+
+    & $Python -c 'import sklearn, scipy, joblib' 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        Write-LauncherStatus '正在安装 curve_predictor 依赖...'
+        & $Python -m pip install -r (Join-Path $PredictorRoot 'requirements.txt')
+        if ($LASTEXITCODE -ne 0) { throw 'curve_predictor 依赖安装失败。' }
+    }
+
+    try { $null = Invoke-RestMethod -Uri ("$PredictorUrl/health") -TimeoutSec 2 }
+    catch {
+        Write-LauncherStatus '正在启动本地 curve_predictor...'
+        $predictor = Start-Process -FilePath $Python -ArgumentList 'api.py' -WorkingDirectory $PredictorRoot -RedirectStandardOutput (Join-Path $LogRoot 'curve-predictor.out.log') -RedirectStandardError (Join-Path $LogRoot 'curve-predictor.err.log') -WindowStyle Hidden -PassThru
+        Set-Content -LiteralPath (Join-Path $LogRoot 'curve-predictor.pid') -Value $predictor.Id
+        $predictorDeadline=(Get-Date).AddSeconds(30)
+        while((Get-Date)-lt $predictorDeadline){try{$null=Invoke-RestMethod -Uri ("$PredictorUrl/health") -TimeoutSec 2;break}catch{Start-Sleep -Milliseconds 500}}
     }
 
     if (-not (Test-AgentReady)) {

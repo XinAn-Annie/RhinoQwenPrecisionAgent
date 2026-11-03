@@ -151,6 +151,25 @@ try:
         color_name = {json.dumps(COLORS)}.get(str(item.get("color", "blue")).lower(), "Blue")
         attrs.ObjectColor = getattr(System.Drawing.Color, color_name)
         attrs.ColorSource = Rhino.DocObjects.ObjectColorSource.ColorFromObject
+        material_spec = item.get("material")
+        if material_spec:
+            hex_color = str(material_spec.get("base_color", "#808080")).lstrip("#")
+            try:
+                red, green, blue = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+            except Exception:
+                red, green, blue = 128, 128, 128
+            material = Rhino.DocObjects.Material()
+            material.Name = str(material_spec.get("name") or (name + "_material"))
+            material.DiffuseColor = System.Drawing.Color.FromArgb(red, green, blue)
+            roughness = max(0.0, min(1.0, float(material_spec.get("roughness", 0.5))))
+            metallic = max(0.0, min(1.0, float(material_spec.get("metallic", 0.0))))
+            material.Transparency = max(0.0, min(1.0, float(material_spec.get("transparency", 0.0))))
+            material.Shine = (1.0 - roughness) * 255.0
+            material.Reflectivity = metallic
+            material_index = doc.Materials.Add(material)
+            if material_index >= 0:
+                attrs.MaterialIndex = material_index
+                attrs.MaterialSource = Rhino.DocObjects.ObjectMaterialSource.MaterialFromObject
         attrs.SetUserString("rqpa_task_id", spec["task_id"])
         object_id = doc.Objects.AddBrep(geometry, attrs)
         if object_id == System.Guid.Empty:

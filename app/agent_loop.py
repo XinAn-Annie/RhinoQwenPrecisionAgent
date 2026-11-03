@@ -4,6 +4,7 @@ import asyncio
 import base64
 import math
 import time
+import uuid
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +14,8 @@ from .repair_loop import RepairLoop
 from .rhino_executor import RhinoExecutor
 from .run_logger import RunLogger
 from .validator import DeterministicValidator
+from .curve_predictor_client import CurvePredictorClient
+from .curve_workflow import validate_in_rhino, write_confirmed_curve
 
 
 class AgentService:
@@ -26,6 +29,8 @@ class AgentService:
         self.cancel_event = asyncio.Event()
         self.last_slot: str | None = None
         self.screenshot_dir = screenshot_dir
+        self.curve_predictor = CurvePredictorClient()
+        self.pending_curves: dict[str, dict[str, Any]] = {}
 
     async def _slot(self) -> str | None:
         status = await self.mcp.status()
@@ -38,12 +43,38 @@ class AgentService:
         context = await self.mcp.call("get_context", {"slot": slot} if slot else {})
         return {"mode": "qa", "answer": await self.qwen.answer(text, context), "context": context}
 
-    async def model(self, text: str, induce_error: bool = False) -> dict[str, Any]:
+    async def preview_curve(self, text: str) -> dict[str, Any]:
+        params = await self.qwen.make_curve_request(text)
+        prediction = await self.curve_predictor.predict(params)
+        if prediction.get("status") != "preview_only":
+            explanation=await self.qwen.explain_curve_preview(params,prediction,None)
+            return {"mode":"curve_preview","extracted_parameters":params,"prediction":prediction,"qwen_explanation":explanation,"requires_user_confirmation":False,"rhino_write_performed":False}
+        slot = await self._slot()
+        validation = await validate_in_rhino(self.mcp, prediction["control_points"], params, slot)
+        if not validation.get("passed"):
+            explanation=await self.qwen.explain_curve_preview(params,prediction,validation)
+            return {"mode":"curve_preview","extracted_parameters":params,"prediction":prediction,"rhino_validation":validation,"qwen_explanation":explanation,"requires_user_confirmation":False,"rhino_write_performed":False}
+        token = uuid.uuid4().hex
+        self.pending_curves[token] = {"params":params,"prediction":prediction,"validation":validation,"slot":slot,"created_at":time.time()}
+        explanation=await self.qwen.explain_curve_preview(params,prediction,validation)
+        return {"mode":"curve_preview","extracted_parameters":params,"prediction":prediction,"rhino_validation":validation,"qwen_explanation":explanation,"confirmation_token":token,"requires_user_confirmation":True,"confirmation_prompt":"RhinoCommon 校验已通过。请确认是否写入 Rhino。","rhino_write_performed":False}
+
+    async def confirm_curve(self, token: str, confirmed: bool) -> dict[str, Any]:
+        pending = self.pending_curves.pop(token, None)
+        if not pending: return {"written":False,"error":"unknown_or_expired_confirmation_token"}
+        if not confirmed: return {"written":False,"cancelled":True}
+        if time.time()-pending["created_at"]>900: return {"written":False,"error":"confirmation_token_expired"}
+        if not pending["validation"].get("passed"): return {"written":False,"error":"rhino_validation_not_passed"}
+        prediction=pending["prediction"]
+        result=await write_confirmed_curve(self.mcp,prediction["control_points"],pending["params"],token,prediction["model_version"],pending["slot"])
+        return {"written":bool(result.get("written")),"result":result,"model_version":prediction["model_version"],"confirmation_token":token}
+
+    async def model(self, text: str, induce_error: bool = False, reference_analysis: dict[str, Any] | None = None) -> dict[str, Any]:
         started = time.perf_counter()
         self.cancel_event.clear()
         slot = await self._slot()
         before_state = await self.mcp.call("list_objects", {"slot": slot} if slot else {})
-        spec, generation = await self.qwen.make_spec(text)
+        spec, generation = await self.qwen.make_spec(text, reference_analysis)
         if self.cancel_event.is_set():
             raise asyncio.CancelledError("stopped before execution")
         plan = await self.qwen.approve_execution(spec)
@@ -74,11 +105,22 @@ class AgentService:
             "qwen_temperature": 0,
             "runtime_seconds": round(time.perf_counter() - started, 3),
             "manual_modification": None,
+            "reference_analysis": reference_analysis,
             "accepted": None,
             "slot": slot,
         }
         path = self.logger.save(spec.task_id, record)
         return {**record, "run_log": str(path)}
+
+    async def model_from_reference(self, text: str, image_path: Path, mime_type: str, reference_meta: dict[str, Any], execute: bool = True) -> dict[str, Any]:
+        analysis=await self.qwen.analyze_reference_image(text,image_path,mime_type)
+        missing=analysis.get("critical_dimensions_missing") or []
+        confidence=float(analysis.get("analysis_confidence",0) or 0)
+        if not execute or missing or confidence<0.55:
+            return {"mode":"reference_analysis","reference":reference_meta,"reference_analysis":analysis,"modeling_started":False,"blocked_reasons":(["analysis_confidence_below_0.55"] if confidence<0.55 else [])+(["critical_dimensions_missing"] if missing else [])}
+        result=await self.model(text,reference_analysis=analysis)
+        result["reference"] = reference_meta
+        return result
 
     async def _capture_viewport(self, spec, slot: str | None) -> str | None:
         if not self.screenshot_dir:

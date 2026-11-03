@@ -27,6 +27,7 @@ class Settings(BaseModel):
     qwen_api_key: SecretStr
     qwen_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     qwen_model: str = "qwen3.8-flash"
+    qwen_vision_model: str = "qwen3.8-flash"
     qwen_enable_thinking: bool = False
     rhino_mcp_command: Path
     rhino_mcp_args: list[str] = Field(default_factory=lambda: ["--default-version", "8"])
@@ -52,13 +53,14 @@ def load_settings(require_key: bool = True) -> Settings:
         raise RuntimeError("QWEN_API_KEY (or DASHSCOPE_API_KEY) is not configured")
     command = os.getenv(
         "RHINO_MCP_COMMAND",
-        r"D:\codex\2026-10-28\rhino-rhino-rhnio-rhnio-github-rhnio\work\RhinoMCPPlatform\package-v0.3.0\router\win-x64\rhino-mcp-router.exe",
+        str(PROJECT_ROOT / "runtime" / "router" / "win-x64" / "rhino-mcp-router.exe"),
     )
     args = shlex.split(os.getenv("RHINO_MCP_ARGS", "--default-version 8"), posix=False)
     return Settings(
         qwen_api_key=SecretStr(key),
         qwen_base_url=os.getenv("QWEN_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"),
         qwen_model=os.getenv("QWEN_MODEL", "qwen3.8-flash"),
+        qwen_vision_model=os.getenv("QWEN_VISION_MODEL", os.getenv("QWEN_MODEL", "qwen3.8-flash")),
         qwen_enable_thinking=os.getenv("QWEN_ENABLE_THINKING", "false").lower() == "true",
         rhino_mcp_command=Path(command),
         rhino_mcp_args=args,

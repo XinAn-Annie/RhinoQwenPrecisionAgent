@@ -8,3 +8,8 @@ logs/
 evaluation/runs/*.json
 evaluation/runs/*.jsonl
 screenshots/*.png
+work/
+curve_predictor/logs/
+curve_predictor/__pycache__/
+training/cache/
+training/archive*/

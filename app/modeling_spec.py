@@ -35,6 +35,14 @@ class EdgeTreatment(BaseModel):
     size: float = Field(gt=0)
     selector: Literal["all", "vertical", "horizontal"] = "vertical"
 
+class MaterialAppearance(BaseModel):
+    name: str = Field(default="reference_material", min_length=1, max_length=80)
+    base_color: str = Field(default="#808080", pattern=r"^#[0-9A-Fa-f]{6}$")
+    metallic: float = Field(default=0, ge=0, le=1)
+    roughness: float = Field(default=0.5, ge=0, le=1)
+    transparency: float = Field(default=0, ge=0, le=1)
+    finish: Literal["matte", "satin", "glossy", "metallic", "glass", "plastic"] = "matte"
+
 
 class ModelObject(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -51,6 +59,7 @@ class ModelObject(BaseModel):
     edge_treatment: EdgeTreatment | None = None
     layer: str = "AI_Demo"
     color: str = "blue"
+    material: MaterialAppearance | None = None
     value_sources: dict[str, Literal["user", "default", "derived"]] = Field(default_factory=dict)
 
     @model_validator(mode="after")

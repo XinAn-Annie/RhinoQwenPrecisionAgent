@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rhino Qwen Precision Agent</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="/static/styles.css?v=reference-upload-2">
 </head>
 <body>
   <main class="shell">
@@ -23,10 +23,21 @@
         <button id="undo" class="secondary">撤销本轮</button>
         <button id="stop" class="danger">停止</button>
       </div>
+      <div id="referenceDrop" class="reference-drop" role="button" tabindex="0" aria-label="上传参考图片">
+        <input id="referenceImage" class="file-input" type="file" accept="image/png,image/jpeg,image/webp,image/bmp,image/gif">
+        <div class="upload-icon">＋</div>
+        <div><strong>上传参考图</strong><p>点击选择或拖拽图片到这里 · PNG / JPG / WebP / BMP / GIF · 最大 20 MB</p></div>
+      </div>
+      <div class="toolbar reference-toolbar">
+        <label><input id="executeReference" type="checkbox" checked> 分析形态和材质后直接建模</label>
+        <button id="clearReference" type="button" class="secondary hidden">移除图片</button>
+        <span id="referenceName"></span>
+      </div>
+      <img id="referencePreview" class="reference-preview hidden" alt="参考图预览">
       <textarea id="prompt" rows="4" placeholder="例如：创建外径160、厚20、中心孔40、分度圆110、6×Ø12通孔的精密法兰。"></textarea>
       <button id="send" class="primary">发送给 Qwen</button>
     </footer>
   </main>
-  <script src="/static/app.js"></script>
+  <script src="/static/app.js?v=reference-upload-2"></script>
 </body>
 </html>

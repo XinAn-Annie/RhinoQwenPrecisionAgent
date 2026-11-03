@@ -16,12 +16,27 @@ from .mcp_rhino_client import RhinoMCPClient
 from .mcp_tool_adapter import mcp_tools_to_qwen
 from .qwen_client import QwenClient
 from .run_logger import RunLogger
+from .reference_assets import store_reference
 
 
 class ChatRequest(BaseModel):
     message: str = Field(min_length=1, max_length=10000)
     mode: Literal["qa", "model"] = "model"
     induce_error: bool = False
+
+class CurvePreviewRequest(BaseModel):
+    message: str = Field(min_length=1, max_length=10000)
+
+class CurveConfirmRequest(BaseModel):
+    confirmation_token: str = Field(min_length=16, max_length=128)
+    confirmed: bool
+
+class ReferenceModelRequest(BaseModel):
+    message: str = Field(min_length=1,max_length=10000)
+    filename: str = Field(min_length=1,max_length=255)
+    mime_type: str = Field(min_length=1,max_length=100)
+    data_base64: str = Field(min_length=4)
+    execute: bool = True
 
 
 state: dict[str, Any] = {"settings": None, "mcp": None, "qwen": None, "agent": None, "qwen_status": {"ok": False}, "mcp_status": {"connected": False}}
@@ -38,6 +53,12 @@ async def lifespan(app: FastAPI):
     try:
         await mcp.connect()
         state["mcp_status"] = await mcp.status()
+        if not state["mcp_status"].get("slots"):
+            state["mcp_spawn"] = await mcp.call("spawn_slot", {"version": "8"}, timeout=180)
+            for _ in range(40):
+                await asyncio.sleep(0.5)
+                state["mcp_status"] = await mcp.status()
+                if state["mcp_status"].get("slots"): break
         state["qwen_status"] = await qwen.health()
         adapted, mapping = mcp_tools_to_qwen(mcp.tools)
         state["tool_adapter"] = {"count": len(adapted), "mapping": mapping}
@@ -60,7 +81,7 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
 @app.get("/")
 async def index():
-    return FileResponse(STATIC / "index.html")
+    return FileResponse(STATIC / "index.html", headers={"Cache-Control":"no-store, max-age=0"})
 
 
 @app.get("/api/status")
@@ -69,6 +90,7 @@ async def status():
         "qwen": state["qwen_status"],
         "mcp": state["mcp_status"],
         "tool_adapter": state.get("tool_adapter", {"count": 0}),
+        "mcp_spawn": state.get("mcp_spawn"),
         "rhino": {"connected": bool(state.get("mcp_status", {}).get("slots"))},
     }
 
@@ -86,6 +108,32 @@ async def chat(request: ChatRequest):
         raise HTTPException(409, "Task stopped")
     except Exception as exc:
         raise HTTPException(500, str(exc))
+
+@app.post("/api/curve-preview")
+async def curve_preview(request: CurvePreviewRequest):
+    agent: AgentService | None = state.get("agent")
+    if not agent: raise HTTPException(503, "Agent is not ready")
+    try: return await agent.preview_curve(request.message)
+    except Exception as exc: raise HTTPException(500, str(exc))
+
+@app.post("/api/curve-confirm")
+async def curve_confirm(request: CurveConfirmRequest):
+    agent: AgentService | None = state.get("agent")
+    if not agent: raise HTTPException(503,"Agent is not ready")
+    result=await agent.confirm_curve(request.confirmation_token,request.confirmed)
+    if result.get("error"): raise HTTPException(409,result["error"])
+    return result
+
+@app.post("/api/reference-model")
+async def reference_model(request: ReferenceModelRequest):
+    agent: AgentService | None = state.get("agent")
+    if not agent: raise HTTPException(503,"Agent is not ready")
+    try:
+        asset=store_reference(PROJECT_ROOT,request.filename,request.mime_type,request.data_base64)
+        public_meta={k:v for k,v in asset.items() if k not in {"path","stored_path"}}
+        return await agent.model_from_reference(request.message,asset["path"],asset["mime_type"],public_meta,request.execute)
+    except ValueError as exc: raise HTTPException(400,str(exc))
+    except Exception as exc: raise HTTPException(500,str(exc))
 
 
 @app.post("/api/stop")

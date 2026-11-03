@@ -1,0 +1,115 @@
+{
+  "model_version": "ca930a8b8b9c",
+  "features": [
+    "width",
+    "height",
+    "depth",
+    "length",
+    "degree",
+    "is_closed",
+    "start_x",
+    "start_y",
+    "start_z",
+    "end_x",
+    "end_y",
+    "end_z",
+    "curvature_mean",
+    "curvature_max",
+    "curvature_std",
+    "control_point_count"
+  ],
+  "output_shape": [
+    8,
+    3
+  ],
+  "unit": "mm",
+  "domain": "classroom_standard_open_and_closed_curve_families_v2",
+  "defaults": {
+    "depth": 0,
+    "start_x": 0,
+    "start_y": 0,
+    "start_z": 0,
+    "end_x": 0,
+    "end_y": 0,
+    "end_z": 0,
+    "curvature_mean": 0,
+    "curvature_max": 0,
+    "curvature_std": 0,
+    "control_point_count": 8
+  },
+  "input_ranges": {
+    "width": [
+      4.731520382567554,
+      119.9256646755279
+    ],
+    "height": [
+      1.7456859361914052,
+      59.54019792910886
+    ],
+    "depth": [
+      0.01544954028146692,
+      15.959375715180276
+    ],
+    "length": [
+      15.408416945557722,
+      260.73619803814734
+    ],
+    "degree": [
+      3.0,
+      3.0
+    ],
+    "is_closed": [
+      0.0,
+      1.0
+    ],
+    "start_x": [
+      -59.962832338,
+      59.979031134
+    ],
+    "start_y": [
+      0.0,
+      0.0
+    ],
+    "start_z": [
+      0.0,
+      0.0
+    ],
+    "end_x": [
+      2.52668968,
+      59.979031134
+    ],
+    "end_y": [
+      0.0,
+      0.0
+    ],
+    "end_z": [
+      0.0,
+      0.0
+    ],
+    "curvature_mean": [
+      0.0023718208319016567,
+      0.46194241191957974
+    ],
+    "curvature_max": [
+      0.0034530255544309883,
+      10.266959948438707
+    ],
+    "curvature_std": [
+      0.0009541814436134795,
+      1.2409955464162126
+    ],
+    "control_point_count": [
+      8.0,
+      8.0
+    ]
+  },
+  "postprocessing": {
+    "type": "sampled_curve_bbox_calibration",
+    "samples": 160
+  },
+  "rejection": {
+    "bbox_max_error_mm": 0.1,
+    "confidence_min": 0.55,
+    "require_rhinocommon_validation": true
+  }
+}

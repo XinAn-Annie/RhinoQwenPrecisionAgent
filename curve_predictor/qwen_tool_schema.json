@@ -1,0 +1,20 @@
+{
+  "type": "function",
+  "function": {
+    "name": "curve_predictor",
+    "description": "Predict eight preview-only NURBS control points. Never writes to Rhino.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "width": {"type": "number", "exclusiveMinimum": 0},
+        "height": {"type": "number", "minimum": 0},
+        "depth": {"type": "number", "minimum": 0, "default": 0},
+        "length": {"type": "number", "exclusiveMinimum": 0},
+        "degree": {"type": "integer", "minimum": 1, "maximum": 7, "default": 3},
+        "is_closed": {"type": "boolean", "default": false}
+      },
+      "required": ["width", "height", "length", "degree", "is_closed"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "3.0",
+  "model_version": "ca930a8b8b9c",
+  "training_protocol": "untouched 4-group test + 4-fold GroupKFold on 16 development groups; model selected only by CV raw RMSE",
+  "selected_model": "PolynomialRidge",
+  "candidates": {
+    "ExtraTreesRegressor": {
+      "folds": [
+        {
+          "fold": 1,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6379870893674531,
+          "validation_rmse": 0.8362649077960197,
+          "validation_calibrated_rmse": 0.2986127497540942
+        },
+        {
+          "fold": 2,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6451697818138773,
+          "validation_rmse": 0.7679785148989832,
+          "validation_calibrated_rmse": 0.23019447147195618
+        },
+        {
+          "fold": 3,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6185271858736896,
+          "validation_rmse": 1.0039374342089313,
+          "validation_calibrated_rmse": 0.17915750876819367
+        },
+        {
+          "fold": 4,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6132993627157208,
+          "validation_rmse": 1.0464137443853376,
+          "validation_calibrated_rmse": 0.1918330459051468
+        }
+      ],
+      "train_rmse_mean": 0.6287458549426852,
+      "validation_rmse_mean": 0.913648650322318,
+      "validation_rmse_std": 0.11509416433828776,
+      "validation_calibrated_rmse_mean": 0.22494944397484773,
+      "generalization_gap": 0.2849027953796328
+    },
+    "MLPRegressor": {
+      "folds": [
+        {
+          "fold": 1,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.7560153840315198,
+          "validation_rmse": 0.8912935153688697,
+          "validation_calibrated_rmse": 0.7206729430778457
+        },
+        {
+          "fold": 2,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6749150687008189,
+          "validation_rmse": 0.7063956929593991,
+          "validation_calibrated_rmse": 0.5939083322511007
+        },
+        {
+          "fold": 3,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6049427931985927,
+          "validation_rmse": 0.6662743614726984,
+          "validation_calibrated_rmse": 0.5153284510020979
+        },
+        {
+          "fold": 4,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.6218913276682556,
+          "validation_rmse": 0.721646470009196,
+          "validation_calibrated_rmse": 0.5414070188945431
+        }
+      ],
+      "train_rmse_mean": 0.6644411433997968,
+      "validation_rmse_mean": 0.7464025099525409,
+      "validation_rmse_std": 0.0860629574046836,
+      "validation_calibrated_rmse_mean": 0.5928291863063968,
+      "generalization_gap": 0.08196136655274411
+    },
+    "PolynomialRidge": {
+      "folds": [
+        {
+          "fold": 1,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.0026863441863299547,
+          "validation_rmse": 0.0020583213620798415,
+          "validation_calibrated_rmse": 0.0015352019430356037
+        },
+        {
+          "fold": 2,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.0026714367699213317,
+          "validation_rmse": 0.0016054597571208112,
+          "validation_calibrated_rmse": 0.0011826955254388989
+        },
+        {
+          "fold": 3,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.0028674156666410365,
+          "validation_rmse": 0.008313632992340053,
+          "validation_calibrated_rmse": 0.0077268965761014856
+        },
+        {
+          "fold": 4,
+          "train_groups": 12,
+          "validation_groups": 4,
+          "train_rmse": 0.0028756850762351412,
+          "validation_rmse": 0.005857831494245711,
+          "validation_calibrated_rmse": 0.005226416383933407
+        }
+      ],
+      "train_rmse_mean": 0.0027752204247818656,
+      "validation_rmse_mean": 0.004458811401446604,
+      "validation_rmse_std": 0.0027713207479895608,
+      "validation_calibrated_rmse_mean": 0.003917802607127349,
+      "generalization_gap": 0.0016835909766647387
+    }
+  },
+  "split": {
+    "development": 1600,
+    "test": 400,
+    "development_groups": 16,
+    "test_groups": [
+      "generator_batch_05",
+      "generator_batch_08",
+      "generator_batch_11",
+      "generator_batch_17"
+    ]
+  },
+  "development_fit_metrics": {
+    "raw_control_point_mae": 0.0010176032397595169,
+    "raw_control_point_rmse": 0.0022646771519102974,
+    "control_point_mae": 0.0008005845653232658,
+    "control_point_rmse": 0.0018975660724276887,
+    "bbox_max_error_mean": 5.649085069647439e-10,
+    "bbox_max_error_p95": 9.377131959809048e-10,
+    "bbox_le_0_1mm_rate": 1.0,
+    "length_abs_error_mean": 3.342665752139484e-05,
+    "array_validity_rate": 1.0,
+    "closure_consistency_rate": 1.0
+  },
+  "test": {
+    "raw_control_point_mae": 0.0011413802727784222,
+    "raw_control_point_rmse": 0.0029389333442494483,
+    "control_point_mae": 0.0008858319169639971,
+    "control_point_rmse": 0.002395490646789885,
+    "bbox_max_error_mean": 5.55855706515368e-10,
+    "bbox_max_error_p95": 9.360757502463456e-10,
+    "bbox_le_0_1mm_rate": 1.0,
+    "length_abs_error_mean": 4.130031813112112e-05,
+    "array_validity_rate": 1.0,
+    "closure_consistency_rate": 1.0
+  },
+  "edge_range_test": {
+    "raw_control_point_mae": 0.000617654777342082,
+    "raw_control_point_rmse": 0.0011625318024800588,
+    "control_point_mae": 0.0004931024497748482,
+    "control_point_rmse": 0.0008546696754112848,
+    "bbox_max_error_mean": 5.326875183643334e-10,
+    "bbox_max_error_p95": 9.722072036311147e-10,
+    "bbox_le_0_1mm_rate": 1.0,
+    "length_abs_error_mean": 1.4302370140895667e-05,
+    "array_validity_rate": 1.0,
+    "closure_consistency_rate": 1.0
+  },
+  "training_seconds_total": 44.08457136154175,
+  "meets_qwen_minimum_standard": true
+}

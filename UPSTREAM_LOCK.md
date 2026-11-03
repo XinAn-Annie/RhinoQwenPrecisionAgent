@@ -15,11 +15,11 @@
 - 项目：[mcneel/RhinoAI](https://github.com/mcneel/RhinoAI)
 - 文档：[Rhino MCP Platform](https://mcneel.github.io/RhinoAI/)
 - Plugin / Router：`0.3.0`
-- Router：`D:\codex\2026-10-28\rhino-rhino-rhnio-rhnio-github-rhnio\work\RhinoMCPPlatform\package-v0.3.0\router\win-x64\rhino-mcp-router.exe`
+- Router：`D:\Xiangmu\Rhino\RhinoQwenPrecisionAgent\runtime\router\win-x64\rhino-mcp-router.exe`
 - Transport：stdio（Router）→ 本地 Rhino HTTP `10500`
 - MCP 协议：`2025-06-18`
 - 实测工具数：32；包括 `list_objects`、`get_context`、`list_slots`、`run_command`、`run_python`、视口、选择、文档与 GH1 工具。
-- 完整实测 Schema：开发探针保存于 `D:\codex\work\rhino_mcp_probe.json`。
+- 完整实测 Schema：运行时通过项目内 Router 的 `tools/list` 动态读取。
 
 官方包必须在 Rhino 用户包注册目录留下加载副本；包原件和本项目均在 D 盘。官方 `run_python` 自身会在 Windows 用户临时目录生成瞬时脚本，这是上游实现行为，不是项目下载目录。
 
